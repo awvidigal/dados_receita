@@ -392,7 +392,7 @@ progressBar = ctk.CTkProgressBar(
 )
 progressBar.pack(
     padx=30, 
-    ady=30
+    pady=30
 )
 
 window.mainloop()
