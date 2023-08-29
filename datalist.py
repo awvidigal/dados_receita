@@ -102,7 +102,7 @@ def buscar():
     
     #Carrega a tabela de referencia para identificar o municipio a partir do seu codigo
     referencia = pd.read_csv(
-        'municipios.csv', 
+        'venv.gitignore/receita_datalist/textfiles/municipios.csv', 
         names=columns, 
         header=None, 
         index_col=False, 
@@ -113,7 +113,7 @@ def buscar():
     for i in range(10):
         #Abre cada arquivo EstabelecimentosX
         data = pd.read_csv(
-            f'Estabelecimentos{i}.csv', 
+            f'venv.gitignore/receita_datalist/textfiles/Estabelecimentos{i}.csv', 
             dtype=object, 
             names=cabecalho, 
             header=None, 
@@ -149,7 +149,7 @@ def buscar():
             if i == 0:
                 #Converte nome da cidade em código
                 citiesList = pd.read_csv(
-                    'Municipios.csv', 
+                    'venv.gitignore/receita_datalist/textfiles/municipios.csv', 
                     names=columns, 
                     header=None, 
                     index_col=False,
@@ -202,7 +202,7 @@ def buscar():
         
     #Puxar as informações contidas nas tabelas "EmpresasX"
     dfEmpresas = pd.read_csv(
-        'Empresas0.csv', 
+        'venv.gitignore/receita_datalist/textfiles/Empresas0.csv', 
         dtype=object, 
         names=cabecalhoEmpresas, 
         header=None, 
@@ -213,7 +213,7 @@ def buscar():
 
     for k in range(1, 10):
         dfAux = pd.read_csv(
-            f'Empresas{k}.csv', 
+            f'venv.gitignore/receita_datalist/textfiles/Empresas{k}.csv', 
             dtype=object, 
             names=cabecalhoEmpresas, 
             header=None, 
@@ -228,7 +228,7 @@ def buscar():
     #Puxar as informações contidas na tabela "Simples.csv"
     #*******************************************************
     dfSimples = pd.read_csv(
-        'Simples.csv', 
+        'venv.gitignore/receita_datalist/textfiles/Simples.csv', 
         dtype=object, 
         names=cabecalhoSimples, 
         header=None, 
@@ -317,7 +317,8 @@ def buscar():
             'Email', 
             'Capital_Social', 
             'Porte da Empresa',
-            'Opcao_pelo_Simples'
+            'Opcao_pelo_Simples',
+            'Contato'
         ]       
     )
         
