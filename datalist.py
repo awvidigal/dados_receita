@@ -291,7 +291,7 @@ def buscar():
             archive[row, 'Contato'] = '+55' + archive[row, 'DDD1'].astype(str) + archive[row, 'Telefone_1'].astype(str)
 
     archive.to_csv(
-        'contatos_' + State + '_' + 'CNAE' + CNAE1 + '.csv', 
+        'venv.gitignore/receita_datalist/output/contatos_' + State + '_' + 'CNAE' + CNAE1 + '.csv', 
         sep=';', 
         index=False, 
         columns=[
