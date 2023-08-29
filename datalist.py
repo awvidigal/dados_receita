@@ -282,6 +282,13 @@ def buscar():
         'DEMAIS', 
         inplace=True
     )
+    
+    # Adicionar contato da empresa
+    for row in archive:
+        if (archive[row, 'Telefone_1'] > 70000000) and (archive[row, 'Telefone_1'] < 900000000):
+            archive[row, 'Contato'] = '+55' + archive[row, 'DDD1'].astype(str) + '9' + archive[row, 'Telefone_1'].astype(str)
+        else:
+            archive[row, 'Contato'] = '+55' + archive[row, 'DDD1'].astype(str) + archive[row, 'Telefone_1'].astype(str)
 
     archive.to_csv(
         'contatos_' + State + '_' + 'CNAE' + CNAE1 + '.csv', 
@@ -311,8 +318,7 @@ def buscar():
             'Capital_Social', 
             'Porte da Empresa',
             'Opcao_pelo_Simples'
-        ]
-        
+        ]       
     )
         
 ctk.set_appearance_mode("dark")
