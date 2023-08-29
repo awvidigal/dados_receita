@@ -309,7 +309,8 @@ def buscar():
             'Telefone_2', 
             'Email', 
             'Capital_Social', 
-            'Porte da Empresa'
+            'Porte da Empresa',
+            'Opcao_pelo_Simples'
         ]
         
     )
@@ -322,8 +323,7 @@ window.title("Contatos - Portal da Transparência")
 
 label = ctk.CTkLabel(
     window, 
-    text="Busca de Empresas - Portal da Transparência"
-        
+    text="Busca de Empresas - Portal da Transparência"        
 )
 
 label.pack()
