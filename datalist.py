@@ -76,12 +76,20 @@ cabecalhoEmpresas = [
     'Ente Federativo Responsavel'
 ]
 
+cabecalhoSimples = [
+    'CNPJ_Raiz',
+    'Opcao_pelo_Simples',
+    'Data_de_Opcao_pelo_Simples',
+    'Data_de_Exclusao_do_Simples',
+    'Opcao_pelo_MEI',
+    'Data_de_Opcao_pelo_MEI',
+    'Data_de_Exclusao_do_MEI'
+]
+
 columns = [
     'Cod_Cidade', 
     'Cidade'
 ]
-
-
 
 def buscar():
     
@@ -216,45 +224,95 @@ def buscar():
 
         dfEmpresas = pd.concat([dfEmpresas, dfAux])
 
-    archive =   pd.merge(archive, 
-                         dfEmpresas, 
-                         on='CNPJ_Raiz', 
-                         how='left'
-                )
+    #*******************************************************
+    #Puxar as informações contidas na tabela "Simples.csv"
+    #*******************************************************
+    dfSimples = pd.read_csv(
+        'Simples.csv', 
+        dtype=object, 
+        names=cabecalhoSimples, 
+        header=None, 
+        index_col=False, 
+        sep=';', 
+        encoding='Latin-1'
+    )
+
+    #Inclui as informações das empresas
+    archive =   pd.merge(
+        archive, 
+        dfEmpresas, 
+        on='CNPJ_Raiz', 
+        how='left'
+                
+    )
+
+    #Inclui as informações do Simples
+    archive =   pd.merge(
+        archive, 
+        dfSimples, 
+        on='CNPJ_Raiz', 
+        how='left'
+                
+    )
     
     archive.info()
     display(archive)
 
     #Substitui código de porte, pelo porte da empresa
-    archive['Porte da Empresa'].replace('00', 'NAO INFORMADO', inplace=True)
-    archive['Porte da Empresa'].replace('01', 'ME', inplace=True)
-    archive['Porte da Empresa'].replace('03', 'EPP', inplace=True)
-    archive['Porte da Empresa'].replace('05', 'DEMAIS', inplace=True)
+    archive['Porte da Empresa'].replace(
+        '00', 
+        'NAO INFORMADO', 
+        inplace=True
+    )
 
-    archive.to_csv('contatos_' + State + '_' + 'CNAE' + CNAE1 + '.csv', sep=';', index=False, 
-                   columns=['CNPJ_Raiz', 
-                            'Razao_Social', 
-                            'ID_Matriz_Filial',
-                            'Nome_Fantasia', 
-                            'Data_de_Inicio_Atividade', 
-                            'Tipo_de_Logradouro', 
-                            'Logradouro', 
-                            'Numero', 
-                            'Complemento', 
-                            'Bairro', 
-                            'CEP', 
-                            'Estado', 
-                            'Cidade', 
-                            'CNAE_Principal', 
-                            'CNAE_Secundario', 
-                            'DDD1', 
-                            'Telefone_1', 
-                            'DDD2', 
-                            'Telefone_2', 
-                            'Email', 
-                            'Capital_Social', 
-                            'Porte da Empresa']
-        )
+    archive['Porte da Empresa'].replace(
+        '01', 
+        'ME', 
+        inplace=True
+    )
+
+    archive['Porte da Empresa'].replace(
+        '03', 
+        'EPP', 
+        inplace=True
+    )
+
+    archive['Porte da Empresa'].replace(
+        '05', 
+        'DEMAIS', 
+        inplace=True
+    )
+
+    archive.to_csv(
+        'contatos_' + State + '_' + 'CNAE' + CNAE1 + '.csv', 
+        sep=';', 
+        index=False, 
+        columns=[
+            'CNPJ_Raiz', 
+            'Razao_Social', 
+            'ID_Matriz_Filial',
+            'Nome_Fantasia', 
+            'Data_de_Inicio_Atividade', 
+            'Tipo_de_Logradouro', 
+            'Logradouro', 
+            'Numero', 
+            'Complemento', 
+            'Bairro', 
+            'CEP', 
+            'Estado', 
+            'Cidade', 
+            'CNAE_Principal', 
+            'CNAE_Secundario', 
+            'DDD1', 
+            'Telefone_1', 
+            'DDD2', 
+            'Telefone_2', 
+            'Email', 
+            'Capital_Social', 
+            'Porte da Empresa'
+        ]
+        
+    )
         
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -262,13 +320,15 @@ window = ctk.CTk()
 window.geometry(customSize)
 window.title("Contatos - Portal da Transparência")
 
-label = ctk.CTkLabel(window, 
-                     text="Busca de Empresas - Portal da Transparência"
-        )
+label = ctk.CTkLabel(
+    window, 
+    text="Busca de Empresas - Portal da Transparência"
+        
+)
 
 label.pack()
 
-labelState =    ctk.CTkLabel(
+labelState = ctk.CTkLabel(
     window, 
     text="Estado"               
 )
