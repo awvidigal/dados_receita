@@ -291,9 +291,9 @@ def buscar():
         Telefone = int(Telefone)
 
         if (Telefone > 70000000) and (Telefone < 900000000):
-            archive.loc[row, 'Telefone'] = '+55' + archive.loc[row, 'DDD1'] + '9' + archive.loc[row, 'Telefone_1']
+            archive.loc[row, 'Telefone'] = "'+55" + archive.loc[row, 'DDD1'] + '9' + archive.loc[row, 'Telefone_1']
         else:
-            archive.loc[row, 'Telefone'] = '+55' + archive.loc[row, 'DDD1'] + archive.loc[row, 'Telefone_1']
+            archive.loc[row, 'Telefone'] = "'+55" + archive.loc[row, 'DDD1'] + archive.loc[row, 'Telefone_1']
 
     archive.to_csv(
         'venv.gitignore/receita_datalist/output/contatos_' + State + '_' + 'CNAE' + CNAE1 + '.csv', 
