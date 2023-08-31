@@ -68,7 +68,7 @@ cabecalho = [
 
 cabecalhoEmpresas = [
     'CNPJ_Raiz', 
-    'Razao_Social', 
+    'Empresa', 
     'Natureza_Juridica', 
     'Qualificacao_do_Responsavel', 
     'Capital_Social', 
@@ -284,11 +284,16 @@ def buscar():
     )
     
     # Adicionar contato da empresa
-    for row in archive:
-        if (archive[row, 'Telefone_1'] > 70000000) and (archive[row, 'Telefone_1'] < 900000000):
-            archive[row, 'Contato'] = '+55' + archive[row, 'DDD1'].astype(str) + '9' + archive[row, 'Telefone_1'].astype(str)
+    rows    = archive.shape[0]
+    column  = 'Telefone_1'
+    for row in range(rows):
+        Telefone = archive.loc[row, column]
+        Telefone = int(Telefone)
+
+        if (Telefone > 70000000) and (Telefone < 900000000):
+            archive.loc[row, 'Telefone'] = '+55' + archive.loc[row, 'DDD1'] + '9' + archive.loc[row, 'Telefone_1']
         else:
-            archive[row, 'Contato'] = '+55' + archive[row, 'DDD1'].astype(str) + archive[row, 'Telefone_1'].astype(str)
+            archive.loc[row, 'Telefone'] = '+55' + archive.loc[row, 'DDD1'] + archive.loc[row, 'Telefone_1']
 
     archive.to_csv(
         'venv.gitignore/receita_datalist/output/contatos_' + State + '_' + 'CNAE' + CNAE1 + '.csv', 
@@ -296,7 +301,7 @@ def buscar():
         index=False, 
         columns=[
             'CNPJ_Raiz', 
-            'Razao_Social', 
+            'Empresa', 
             'ID_Matriz_Filial',
             'Nome_Fantasia', 
             'Data_de_Inicio_Atividade', 
@@ -318,7 +323,8 @@ def buscar():
             'Capital_Social', 
             'Porte da Empresa',
             'Opcao_pelo_Simples',
-            'Contato'
+            'Opcao_pelo_MEI',
+            'Telefone'
         ]       
     )
         
