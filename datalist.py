@@ -1,11 +1,10 @@
-import csv
-import customtkinter as ctk
-import pandas as pd
+import customtkinter    as ctk
+import pandas           as pd
 import time
-
-from IPython.display import display
-from tkinter import *
-from tkinter.ttk import *
+import csv
+from IPython.display    import display
+from tkinter            import *
+from tkinter.ttk        import *
 
 sleepTime = 3
 global customSize
@@ -284,10 +283,16 @@ def buscar():
     )
     
     # Adicionar contato da empresa
-    rows    = archive.shape[0]
     column  = 'Telefone_1'
+    archive = archive[~archive['Telefone_1'].isna()]
+    archive = archive[~archive['DDD1'].isna()]
+    archive = archive.reset_index(drop=True)
+    display(archive)
+    archive.info()
+    rows    = archive.shape[0]
+
     for row in range(rows):
-        Telefone = archive.loc[row, column]
+        Telefone = archive.loc[row,column]      
         Telefone = int(Telefone)
 
         if (Telefone > 70000000) and (Telefone < 900000000):
