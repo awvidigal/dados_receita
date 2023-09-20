@@ -292,7 +292,8 @@ def buscar():
     rows    = archive.shape[0]
 
     for row in range(rows):
-        Telefone = archive.loc[row,column]      
+        Telefone = archive.loc[row,column]
+        Telefone = Telefone.replace('-','').replace(' ', '').replace('(','').replace(')','')      
         Telefone = int(Telefone)
 
         if (Telefone > 70000000) and (Telefone < 900000000):
